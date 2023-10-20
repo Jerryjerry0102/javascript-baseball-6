@@ -10,15 +10,23 @@ class NumberBaseballGame {
     this.computerNumbers = Random.pickUniqueNumbersInRange(1, 9, 3);
   }
 
-  start() {
+  async start() {
     Console.print(Message.START);
-    this.askPlayerNumbers();
+    this.getPlayerNumbers();
   }
 
-  async askPlayerNumbers() {
+  async getPlayerNumbers() {
+    const answer = await this.sendToPlayer(Query.NUMBERS);
+    this.isUniqueNumbers([...answer].map((x) => Number(x)));
+  }
+
+  isUniqueNumbers(array) {
+    console.log(array);
+  }
+
+  async sendToPlayer(query) {
     try {
-      const playerNumbers = await Console.readLineAsync(Query.NUMBERS);
-      this.playerNumbers = playerNumbers;
+      return await Console.readLineAsync(query);
     } catch (error) {
       // reject 되는 경우
     }
