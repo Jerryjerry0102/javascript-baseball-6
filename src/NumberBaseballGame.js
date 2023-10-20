@@ -27,6 +27,8 @@ class NumberBaseballGame {
       if (!(1 <= v || v <= 9))
         throw new Error(`${Message.ERROR} 1부터 9 사이의 수 3개를 입력하세요.`);
     });
+    if (array.length !== new Set(array).size)
+      throw new Error(`${Message.ERROR} 서로 다른 수를 입력하세요.`);
   }
 
   async sendToPlayer(query) {
