@@ -21,7 +21,12 @@ class NumberBaseballGame {
   }
 
   isUniqueNumbers(array) {
-    if (array.length !== 3) throw new Error(Message.ERROR);
+    if (array.length !== 3)
+      throw new Error(`${Message.ERROR} 3자리를 입력하세요.`);
+    array.forEach((v) => {
+      if (!(1 <= v || v <= 9))
+        throw new Error(`${Message.ERROR} 1부터 9 사이의 수 3개를 입력하세요.`);
+    });
   }
 
   async sendToPlayer(query) {
