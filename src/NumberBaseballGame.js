@@ -21,7 +21,7 @@ class NumberBaseballGame {
   }
 
   isUniqueNumbers(array) {
-    console.log(array);
+    if (array.length !== 3) throw new Error(Message.ERROR);
   }
 
   async sendToPlayer(query) {
