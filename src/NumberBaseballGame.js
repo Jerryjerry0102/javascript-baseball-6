@@ -6,19 +6,38 @@ import Validator from "./Validator.js";
 class NumberBaseballGame {
   computerNumbers;
   playerNumbers;
+  counter = { strike: 0, ball: 0 };
 
   constructor() {
     this.computerNumbers = Random.pickUniqueNumbersInRange(1, 9, 3);
+    console.log(this.computerNumbers);
   }
 
   async start() {
     Console.print(Message.START);
     const answer = await this.sendToPlayer(Query.NUMBERS);
-    const validatedInput = this.validateInput(
+    this.playerNumbers = this.validateInput(
       Query.NUMBERS,
       [...answer].map(Number)
     );
-    console.log(validatedInput);
+    this.counter.strike = this.getStrikeCounts();
+    this.counter.ball = this.getBallCounts();
+  }
+
+  getStrikeCounts() {
+    let counts = 0;
+    for (let i = 0; i < 3; i++) {
+      if (this.computerNumbers[i] === this.playerNumbers[i]) counts++;
+    }
+    return counts;
+  }
+
+  getBallCounts() {
+    let counts = 0;
+    for (let i = 0; i < 3; i++) {
+      if (this.playerNumbers.includes(this.computerNumbers[i])) counts++;
+    }
+    return counts - this.counter.strike;
   }
 
   validateInput(query, answer) {
