@@ -6,11 +6,15 @@ import Validator from "./Validator.js";
 class NumberBaseballGame {
   computerNumbers;
   playerNumbers;
-  counter = { strike: 0, ball: 0 };
+  counter;
 
   constructor() {
+    this.init();
+  }
+
+  init() {
     this.computerNumbers = Random.pickUniqueNumbersInRange(1, 9, 3);
-    console.log(this.computerNumbers);
+    this.counter = { strike: 0, ball: 0 };
   }
 
   start() {
@@ -35,7 +39,10 @@ class NumberBaseballGame {
   async shouldRestart() {
     const answer = await this.sendToPlayer(Query.RESTART);
     const validatedAnswer = this.validateInput(Query.RESTART, +answer);
-    console.log(validatedAnswer);
+    if (validatedAnswer === 1) {
+      this.init();
+      this.temp();
+    } else process.exit();
   }
 
   print(result) {
