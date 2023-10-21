@@ -13,8 +13,12 @@ class NumberBaseballGame {
     console.log(this.computerNumbers);
   }
 
-  async start() {
+  start() {
     Console.print(Message.START);
+    this.temp();
+  }
+
+  async temp() {
     const answer = await this.sendToPlayer(Query.NUMBERS);
     this.playerNumbers = this.validateInput(
       Query.NUMBERS,
@@ -22,6 +26,23 @@ class NumberBaseballGame {
     );
     this.counter.strike = this.getStrikeCounts();
     this.counter.ball = this.getBallCounts();
+    const result = this.getResult();
+    this.print(result);
+  }
+
+  print(result) {
+    Console.print(result);
+    if (result === `3${Message.STRIKE}`) Console.print(Message.END);
+    else this.temp();
+  }
+
+  getResult() {
+    if (this.counter.strike === 3) return `3${Message.STRIKE}`;
+    if (this.counter.strike === 0 && this.counter.ball === 0)
+      return Message.NOTHING;
+    if (this.counter.strike === 0) return this.counter.ball + Message.BALL;
+    if (this.counter.ball === 0) return this.counter.strike + Message.STRIKE;
+    return `${this.counter.ball}${Message.BALL} ${this.counter.strike}${Message.STRIKE}`;
   }
 
   getStrikeCounts() {
