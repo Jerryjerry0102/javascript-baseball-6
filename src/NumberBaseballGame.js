@@ -27,13 +27,24 @@ class NumberBaseballGame {
     this.counter.strike = this.getStrikeCounts();
     this.counter.ball = this.getBallCounts();
     const result = this.getResult();
-    this.print(result);
+    const isOver = this.print(result);
+    if (isOver) this.shouldRestart();
+    else this.temp();
+  }
+
+  async shouldRestart() {
+    const answer = await this.sendToPlayer(Query.RESTART);
+    const validatedAnswer = this.validateInput(Query.RESTART, +answer);
+    console.log(validatedAnswer);
   }
 
   print(result) {
     Console.print(result);
-    if (result === `3${Message.STRIKE}`) Console.print(Message.END);
-    else this.temp();
+    if (result === `3${Message.STRIKE}`) {
+      Console.print(Message.END);
+      return true;
+    }
+    return false;
   }
 
   getResult() {
@@ -72,7 +83,8 @@ class NumberBaseballGame {
           return answer;
         throw new Error(Message.ERROR);
       case Query.RESTART:
-        break;
+        if (answer === 1 || answer === 2) return answer;
+        throw new Error(Message.ERROR);
     }
   }
 
