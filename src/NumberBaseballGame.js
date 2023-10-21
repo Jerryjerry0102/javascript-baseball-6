@@ -1,6 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 import Message from "./Message.js";
 import Query from "./Query.js";
+import Validator from "./Validator.js";
 
 class NumberBaseballGame {
   computerNumbers;
@@ -12,23 +13,27 @@ class NumberBaseballGame {
 
   async start() {
     Console.print(Message.START);
-    this.getPlayerNumbers();
-  }
-
-  async getPlayerNumbers() {
     const answer = await this.sendToPlayer(Query.NUMBERS);
-    this.isUniqueNumbers([...answer].map((x) => Number(x)));
+    const validatedInput = this.validateInput(
+      Query.NUMBERS,
+      [...answer].map(Number)
+    );
+    console.log(validatedInput);
   }
 
-  isUniqueNumbers(array) {
-    if (array.length !== 3)
-      throw new Error(`${Message.ERROR} 3자리를 입력하세요.`);
-    array.forEach((v) => {
-      if (!(1 <= v || v <= 9))
-        throw new Error(`${Message.ERROR} 1부터 9 사이의 수 3개를 입력하세요.`);
-    });
-    if (array.length !== new Set(array).size)
-      throw new Error(`${Message.ERROR} 서로 다른 수를 입력하세요.`);
+  validateInput(query, answer) {
+    switch (query) {
+      case Query.NUMBERS:
+        if (
+          Validator.isLength(3, 3, answer) &&
+          Validator.isNumberArray(answer) &&
+          Validator.isUnique(answer)
+        )
+          return answer;
+        throw new Error(Message.ERROR);
+      case Query.RESTART:
+        break;
+    }
   }
 
   async sendToPlayer(query) {
