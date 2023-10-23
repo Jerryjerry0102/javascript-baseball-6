@@ -9,20 +9,16 @@ class NumberBaseballGame {
   counter;
 
   constructor() {
+    Console.print(Message.START);
     this.init();
   }
 
   init() {
-    this.computerNumbers = Random.pickUniqueNumbersInRange(1, 9, 3);
+    this.computerNumbers = this.getComputerNumbers();
     this.counter = { strike: 0, ball: 0 };
   }
 
-  start() {
-    Console.print(Message.START);
-    this.temp();
-  }
-
-  async temp() {
+  async play() {
     const answer = await this.sendToPlayer(Query.NUMBERS);
     this.playerNumbers = this.validateInput(
       Query.NUMBERS,
@@ -33,7 +29,16 @@ class NumberBaseballGame {
     const result = this.getResult();
     const isOver = this.print(result);
     if (isOver) this.shouldRestart();
-    else this.temp();
+    else await this.play();
+  }
+
+  getComputerNumbers() {
+    const array = [];
+    while (array.length < 3) {
+      const number = Random.pickNumberInRange(1, 9);
+      if (!array.includes(number)) array.push(number);
+    }
+    return array;
   }
 
   async shouldRestart() {
@@ -41,8 +46,8 @@ class NumberBaseballGame {
     const validatedAnswer = this.validateInput(Query.RESTART, +answer);
     if (validatedAnswer === 1) {
       this.init();
-      this.temp();
-    } else process.exit();
+      await this.play();
+    }
   }
 
   print(result) {
