@@ -1,14 +1,14 @@
 import { Console } from '@woowacourse/mission-utils';
-import { QUERY_MESSAGE } from '../constant/Message.js';
+import MESSAGE from '../constant/Message.js';
 
 const InputView = {
   async readNumbers() {
-    const input = await Console.readLineAsync(QUERY_MESSAGE.numbers);
+    const input = await Console.readLineAsync(MESSAGE.query.numbers);
     return input.split('').map(Number);
   },
 
   async readAnswerToRestart() {
-    const input = await Console.readLineAsync(QUERY_MESSAGE.restart);
+    const input = await Console.readLineAsync(MESSAGE.query.restart);
     return Number(input);
   },
 };
