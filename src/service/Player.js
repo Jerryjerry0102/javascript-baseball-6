@@ -1,4 +1,4 @@
-import InputView from './view/InputView.js';
+import InputView from '../ui/InputView.js';
 
 class Player {
   async guessNumbersOf(computer) {

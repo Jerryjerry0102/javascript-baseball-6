@@ -1,4 +1,4 @@
-import Result from './Result.js';
+import Result from '../ui/Result.js';
 
 class Numbers {
   #numbers;
@@ -11,12 +11,15 @@ class Numbers {
     return new Result(
       this.#countMatchingNumbers(other),
       this.#countMatchingIndexesAndNumbers(other),
-      this.#isSame(other),
     );
   }
 
   includes(otherNumber) {
     return this.#numbers.includes(otherNumber);
+  }
+
+  isMatching(other) {
+    return this.#numbers.length === this.#countMatchingIndexesAndNumbers(other);
   }
 
   findIndex(otherNumber) {
@@ -31,10 +34,6 @@ class Numbers {
     return this.#numbers.filter(
       (number, index) => index === other.findIndex(number),
     ).length;
-  }
-
-  #isSame(other) {
-    return this.#numbers.length === this.#countMatchingIndexesAndNumbers(other);
   }
 }
 

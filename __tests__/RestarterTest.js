@@ -1,5 +1,5 @@
-import { RESTART_INFO } from '../src/constant/Info';
-import Restarter from '../src/domain/Restarter.js';
+import { RESTART_INFO } from '../src/constant/Info.js';
+import Restarter from '../src/service/Restarter.js';
 
 describe('재시작 클래스 테스트', () => {
   const restarter = new Restarter(RESTART_INFO);

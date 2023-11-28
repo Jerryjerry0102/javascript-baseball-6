@@ -1,4 +1,4 @@
-import OutputView from './view/OutputView.js';
+import OutputView from '../ui/OutputView.js';
 
 class Computer {
   #player;
@@ -19,10 +19,9 @@ class Computer {
   async check(playerInput) {
     const playerNumbers = this.#numbersGenerator.generate(playerInput);
 
-    const result = this.#numbers.compareTo(playerNumbers);
-    OutputView.printResult(result);
+    OutputView.printResult(this.#numbers.compareTo(playerNumbers));
 
-    if (!result.isMatching()) await this.#askNumbers();
+    if (!this.#numbers.isMatching(playerNumbers)) await this.#askNumbers();
   }
 
   async #askNumbers() {

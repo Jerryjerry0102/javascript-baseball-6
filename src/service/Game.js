@@ -1,9 +1,9 @@
-import { NUMBERS_INFO, RESTART_INFO } from './constant/Info.js';
+import { NUMBERS_INFO, RESTART_INFO } from '../constant/Info.js';
 import Computer from './Computer.js';
-import NumbersGenerator from './domain/NumbersGenerator.js';
-import Restarter from './domain/Restarter.js';
+import NumbersGenerator from '../domain/NumbersGenerator.js';
+import Restarter from './Restarter.js';
 import Player from './Player.js';
-import OutputView from './view/OutputView.js';
+import OutputView from '../ui/OutputView.js';
 
 class Game {
   #player = new Player();

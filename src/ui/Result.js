@@ -3,30 +3,21 @@ import { RESULT_STRING } from '../constant/Info.js';
 class Result {
   #ballCount;
   #strikeCount;
-  #isMatching;
 
-  constructor(matchingNumbersCount, matchingIndexesAndNumbersCount, isSame) {
+  constructor(matchingNumbersCount, matchingIndexesAndNumbersCount) {
     this.#ballCount = matchingNumbersCount - matchingIndexesAndNumbersCount;
     this.#strikeCount = matchingIndexesAndNumbersCount;
-    this.#isMatching = isSame;
-  }
-
-  isMatching() {
-    return this.#isMatching;
   }
 
   toString() {
-    if (this.#haveBallCountAndStrikeCount()) {
+    if (this.#haveBallCount() && this.#haveStrikeCount()) {
       return `${this.#formatBall()} ${this.#formatStrike()}`;
     }
+
     if (this.#haveBallCount()) return this.#formatBall();
     if (this.#haveStrikeCount()) return this.#formatStrike();
 
     return RESULT_STRING.nothing;
-  }
-
-  #haveBallCountAndStrikeCount() {
-    return this.#ballCount > 0 && this.#strikeCount > 0;
   }
 
   #haveBallCount() {

@@ -14,16 +14,11 @@ class NumbersGenerator {
   }
 
   generateRandomly() {
+    const { startInclusive, endInclusive } = this.#numberRange;
     const numbers = new Set();
-
     while (numbers.size < this.#length) {
-      const number = Random.pickNumberInRange(
-        this.#numberRange.startInclusive,
-        this.#numberRange.endInclusive,
-      );
-      numbers.add(number);
+      numbers.add(Random.pickNumberInRange(startInclusive, endInclusive));
     }
-    console.log(numbers);
 
     return this.generate(Array.from(numbers));
   }
