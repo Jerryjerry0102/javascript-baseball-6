@@ -1,4 +1,4 @@
-import RESULT_STRING_INFO from '../constant/ResultStringInfo.js';
+import { RESULT_STRING_INFO } from '../constant/Info.js';
 
 class Result {
   #ballCount;

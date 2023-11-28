@@ -1,19 +1,29 @@
-import NUMBERS_INFO from './constant/NumbersInfo.js';
-import Computer from './domain/Computer.js';
+import { NUMBERS_INFO, RESTART_INFO } from './constant/Info.js';
+import Computer from './Computer.js';
 import NumbersGenerator from './domain/NumbersGenerator.js';
+import Restarter from './domain/Restarter.js';
 import Player from './Player.js';
 import OutputView from './view/OutputView.js';
 
 class Game {
-  #computer = new Computer();
   #player = new Player();
-  #numbersGenerator = new NumbersGenerator(NUMBERS_INFO);
+  #computer = new Computer(this.#player, new NumbersGenerator(NUMBERS_INFO));
+  #restarter = new Restarter(RESTART_INFO);
 
-  async play() {
+  async start() {
     OutputView.printStartMessage();
-    this.#computer.pickNumbersBy(this.#numbersGenerator);
-    await this.#player.guessNumbersOf(this.#computer, this.#numbersGenerator);
+    await this.#play();
+  }
+
+  async #play() {
+    await this.#computer.pickNumbers();
     OutputView.printEndMessage();
+    await this.#askRestart();
+  }
+
+  async #askRestart() {
+    const input = await this.#player.answerToRestart();
+    if (this.#restarter.isRestart(input)) await this.#play();
   }
 }
 

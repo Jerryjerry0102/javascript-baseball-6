@@ -1,5 +1,5 @@
-import RESULT_STRING_INFO from '../src/constant/ResultStringInfo';
-import Numbers from '../src/domain/Numbers';
+import { RESULT_STRING_INFO } from '../src/constant/Info.js';
+import Numbers from '../src/domain/Numbers.js';
 
 describe('숫자들 클래스 테스트', () => {
   const { ball, strike, nothing } = RESULT_STRING_INFO;

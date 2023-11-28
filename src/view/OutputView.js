@@ -6,8 +6,8 @@ const OutputView = {
     Console.print(MESSAGE.start);
   },
 
-  printResult(result) {
-    Console.print(result.toString());
+  printResult(stringResult) {
+    Console.print(stringResult);
   },
 
   printEndMessage() {

@@ -1,4 +1,4 @@
-import NUMBERS_INFO from '../src/constant/NumbersInfo.js';
+import { NUMBERS_INFO } from '../src/constant/Info.js';
 import NumbersValidator from '../src/validator/NumbersValidator.js';
 
 describe('숫자들 검증자 클래스 테스트', () => {

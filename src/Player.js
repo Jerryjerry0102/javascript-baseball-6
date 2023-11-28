@@ -1,17 +1,14 @@
-import OutputView from './view/OutputView.js';
 import InputView from './view/InputView.js';
 
 class Player {
-  async guessNumbersOf(computer, numbersGenerator) {
+  async guessNumbersOf(computer) {
     const input = await InputView.readNumbers();
-    const numbers = numbersGenerator.generate(input);
+    await computer.check(input);
+  }
 
-    const result = computer.check(numbers);
-    OutputView.printResult(result);
-
-    if (!result.isMatching()) {
-      await this.guessNumbersOf(computer, numbersGenerator);
-    }
+  async answerToRestart() {
+    const input = await InputView.readAnswerToRestart();
+    return input;
   }
 }
 
