@@ -5,31 +5,32 @@ import Numbers from './Numbers.js';
 class NumbersGenerator {
   #length;
   #numberRange;
-  #validator;
+  #numbersValidator;
 
   constructor(info) {
     this.#length = info.length;
     this.#numberRange = info.numberRange;
-    this.#validator = new NumbersValidator(info);
+    this.#numbersValidator = new NumbersValidator(info);
   }
 
-  generate(numbers) {
-    this.#validator.validate(numbers);
-    return new Numbers(numbers);
-  }
-
-  generateRandom() {
+  generateRandomly() {
     const numbers = [];
 
     while (numbers.length < this.#length) {
       const number = Random.pickNumberInRange(
-        this.#numberRange.startInculisve,
-        this.#numberRange.endInclusvie,
+        this.#numberRange.startInclusive,
+        this.#numberRange.endInclusive,
       );
       if (!numbers.includes(number)) numbers.push(number);
     }
+    console.log(numbers);
 
     return this.generate(numbers);
+  }
+
+  generate(numbers) {
+    this.#numbersValidator.validate(numbers);
+    return new Numbers(numbers);
   }
 }
 
