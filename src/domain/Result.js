@@ -1,13 +1,13 @@
-import { RESULT_STRING_INFO } from '../constant/Info.js';
+import { RESULT_STRING } from '../constant/Info.js';
 
 class Result {
   #ballCount;
   #strikeCount;
   #isMatching;
 
-  constructor(sameCount, exactlySameCount, isSame) {
-    this.#ballCount = sameCount - exactlySameCount;
-    this.#strikeCount = exactlySameCount;
+  constructor(matchingNumbersCount, matchingIndexesAndNumbersCount, isSame) {
+    this.#ballCount = matchingNumbersCount - matchingIndexesAndNumbersCount;
+    this.#strikeCount = matchingIndexesAndNumbersCount;
     this.#isMatching = isSame;
   }
 
@@ -16,13 +16,33 @@ class Result {
   }
 
   toString() {
-    const { nothing, ball, strike } = RESULT_STRING_INFO;
+    if (this.#haveBallCountAndStrikeCount()) {
+      return `${this.#formatBall()} ${this.#formatStrike()}`;
+    }
+    if (this.#haveBallCount()) return this.#formatBall();
+    if (this.#haveStrikeCount()) return this.#formatStrike();
 
-    if (this.#ballCount > 0 && this.#strikeCount > 0)
-      return `${this.#ballCount}${ball} ${this.#strikeCount}${strike}`;
-    if (this.#ballCount > 0) return `${this.#ballCount}${ball}`;
-    if (this.#strikeCount > 0) return `${this.#strikeCount}${strike}`;
-    return nothing;
+    return RESULT_STRING.nothing;
+  }
+
+  #haveBallCountAndStrikeCount() {
+    return this.#ballCount > 0 && this.#strikeCount > 0;
+  }
+
+  #haveBallCount() {
+    return this.#ballCount > 0;
+  }
+
+  #haveStrikeCount() {
+    return this.#strikeCount > 0;
+  }
+
+  #formatBall() {
+    return `${this.#ballCount}${RESULT_STRING.ball}`;
+  }
+
+  #formatStrike() {
+    return `${this.#strikeCount}${RESULT_STRING.strike}`;
   }
 }
 

@@ -14,18 +14,18 @@ class NumbersGenerator {
   }
 
   generateRandomly() {
-    const numbers = [];
+    const numbers = new Set();
 
-    while (numbers.length < this.#length) {
+    while (numbers.size < this.#length) {
       const number = Random.pickNumberInRange(
         this.#numberRange.startInclusive,
         this.#numberRange.endInclusive,
       );
-      if (!numbers.includes(number)) numbers.push(number);
+      numbers.add(number);
     }
     console.log(numbers);
 
-    return this.generate(numbers);
+    return this.generate(Array.from(numbers));
   }
 
   generate(numbers) {

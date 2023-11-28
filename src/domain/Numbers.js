@@ -9,8 +9,8 @@ class Numbers {
 
   compareTo(other) {
     return new Result(
-      this.#countSameNumbers(other),
-      this.#countStrictSameNumbers(other),
+      this.#countMatchingNumbers(other),
+      this.#countMatchingIndexesAndNumbers(other),
       this.#isSame(other),
     );
   }
@@ -23,18 +23,18 @@ class Numbers {
     return this.#numbers.findIndex((number) => number === otherNumber);
   }
 
-  #countSameNumbers(other) {
+  #countMatchingNumbers(other) {
     return this.#numbers.filter((number) => other.includes(number)).length;
   }
 
-  #countStrictSameNumbers(other) {
+  #countMatchingIndexesAndNumbers(other) {
     return this.#numbers.filter(
       (number, index) => index === other.findIndex(number),
     ).length;
   }
 
   #isSame(other) {
-    return this.#numbers.length === this.#countStrictSameNumbers(other);
+    return this.#numbers.length === this.#countMatchingIndexesAndNumbers(other);
   }
 }
 

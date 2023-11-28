@@ -1,8 +1,8 @@
-import { RESULT_STRING_INFO } from '../src/constant/Info.js';
+import { RESULT_STRING } from '../src/constant/Info.js';
 import Numbers from '../src/domain/Numbers.js';
 
 describe('숫자들 클래스 테스트', () => {
-  const { ball, strike, nothing } = RESULT_STRING_INFO;
+  const { ball, strike, nothing } = RESULT_STRING;
   const numbers = new Numbers([1, 2, 3]);
 
   test('[4,5,6]일 경우 낫싱', () => {

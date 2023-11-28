@@ -12,13 +12,15 @@ class Computer {
 
   async pickNumbers() {
     this.#numbers = this.#numbersGenerator.generateRandomly();
+
     await this.#askNumbers();
   }
 
   async check(playerInput) {
     const playerNumbers = this.#numbersGenerator.generate(playerInput);
+
     const result = this.#numbers.compareTo(playerNumbers);
-    OutputView.printResult(result.toString());
+    OutputView.printResult(result);
 
     if (!result.isMatching()) await this.#askNumbers();
   }

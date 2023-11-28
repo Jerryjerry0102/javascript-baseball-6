@@ -10,28 +10,28 @@ class NumbersValidator {
   }
 
   validate(numbers) {
-    if (
-      !this.#isSatisfiedByLength(numbers) ||
-      !this.#isSatisfiedByNumberRange(numbers) ||
-      !this.#isUnique(numbers)
-    ) {
-      throw new Error(this.#errorMessage);
-    }
+    const { validLength, validNumbers, uniqueNumbers } = this.#errorMessage;
+    if (!this.#hasValidLength(numbers)) throw new Error(validLength);
+    if (!this.#hasValidNumbers(numbers)) throw new Error(validNumbers);
+    if (!this.#hasUniqueNumbers(numbers)) throw new Error(uniqueNumbers);
   }
 
-  #isSatisfiedByLength(numbers) {
+  #hasValidLength(numbers) {
     return numbers.length === this.#length;
   }
 
-  #isSatisfiedByNumberRange(numbers) {
-    return numbers.every(
-      (number) =>
-        this.#numberRange.startInclusive <= number &&
-        number <= this.#numberRange.endInclusive,
+  #hasValidNumbers(numbers) {
+    return numbers.every((number) => this.#isInNumberRange(number));
+  }
+
+  #isInNumberRange(number) {
+    return (
+      this.#numberRange.startInclusive <= number &&
+      number <= this.#numberRange.endInclusive
     );
   }
 
-  #isUnique(numbers) {
+  #hasUniqueNumbers(numbers) {
     return new Set(numbers).size === numbers.length;
   }
 }

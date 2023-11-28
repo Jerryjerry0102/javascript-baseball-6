@@ -10,11 +10,11 @@ class Restarter {
   }
 
   isRestart(input) {
-    this.#validate(input);
+    this.#validateRestartNumber(input);
     return this.#restartNumber === input;
   }
 
-  #validate(number) {
+  #validateRestartNumber(number) {
     if (![this.#restartNumber, this.#endNumber].includes(number)) {
       throw new Error(this.#errorMessage);
     }
